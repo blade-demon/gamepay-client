@@ -1,0 +1,2 @@
+C:\Users\ziwei\Documents\SpaceShooter\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+C:\Users\ziwei\Documents\SpaceShooter\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache

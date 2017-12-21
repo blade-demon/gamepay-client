@@ -1,11 +1,10 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using UnityEngine.UI;
 using Newtonsoft.Json;
-
 
 public struct MachineData
 {
@@ -38,10 +37,9 @@ public class Done_GameController : MonoBehaviour
   public Text scoreText;
   public Text gameOverText;
   public Button confirmButton;
+  
 
   public GameObject failedPanel;
-
-  public Canvas inputCodeCanvas;
   public InputField codeInputField;
 
   private bool gameOver;
@@ -49,9 +47,9 @@ public class Done_GameController : MonoBehaviour
   private int score;
 
   // 游戏记录ID
-  private string recordId;
+  public string recordId;
 
-  
+
   void Start()
   {
 
@@ -59,8 +57,7 @@ public class Done_GameController : MonoBehaviour
     failedPanel.SetActive(false);
     gameOver = false;
     restart = false;
-    
-    restartText.text = "";
+
     gameOverText.text = "";
     score = 0;
     recordId = "";
@@ -81,6 +78,11 @@ public class Done_GameController : MonoBehaviour
     }
   }
 
+  void Restart()
+  {
+    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+  }
+
   IEnumerator SpawnWaves()
   {
     yield return new WaitForSeconds(startWait);
@@ -98,12 +100,12 @@ public class Done_GameController : MonoBehaviour
 
       if (gameOver)
       {
-        restartText.text = "Press 'R' for Restart";
+        // restartText.text = "Press 'R' for Restart";
         restart = true;
         failedPanel.SetActive(true);
         // 上传游戏失败纪录
         StartCoroutine(GameFailed());
-        
+
         break;
       }
     }
@@ -157,10 +159,10 @@ public class Done_GameController : MonoBehaviour
     }
     else
     {
-      Debug.Log("Game login data upload complete!");
+      // Debug.Log("Game login data upload complete!");
       string returnData = ((DownloadHandler)www.downloadHandler).text;
       recordId = JsonConvert.DeserializeObject<FailedResponseData>(returnData)._id;
-      Debug.Log(recordId);
+      // Debug.Log(recordId);
     }
   }
 
@@ -184,4 +186,5 @@ public class Done_GameController : MonoBehaviour
       Debug.Log("Game failed data upload successfully!");
     }
   }
+
 }
